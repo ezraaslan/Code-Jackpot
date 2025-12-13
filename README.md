@@ -1,0 +1,1 @@
+This is an educational tool to inspire a love of coding and increase work productivity. With fake money, users wager an amount of cash and write correct lines of code in order to cash out with a jackpot.
