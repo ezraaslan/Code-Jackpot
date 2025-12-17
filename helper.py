@@ -302,7 +302,6 @@ def main():
                 paused = True
                 pause_start_time = time.time()
 
-                # freeze both values
                 frozen_afk = afk_time()
                 frozen_elapsed = time.time() - start_time - total_pause_duration
 
@@ -312,7 +311,6 @@ def main():
                 paused = False
                 total_pause_duration += time.time() - pause_start_time
                 
-                # restore last_activity so AFK continues from the frozen point
                 last_activity = time.time() - frozen_afk
                 
                 generate_button.configure(text='PAUSE')
