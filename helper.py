@@ -73,7 +73,7 @@ def slot_machine_animation(win):
         if count > 0:
             slot_root.after(100, spin, count - 1)
         else:
-            # symbols
+            #symbols
             if win:
                 s = random.choice(symbols)
                 final = [s, s, s] 
@@ -296,22 +296,26 @@ def main():
         status_label.pack(side="left", padx=10)
 
         def toggle_pause():
-            global paused, pause_start_time, total_pause_duration, frozen_afk, frozen_elapsed
+            global paused, pause_start_time, total_pause_duration, frozen_afk, frozen_elapsed, last_activity
 
             if not paused:
                 paused = True
                 pause_start_time = time.time()
-                frozen_afk = afk_time()      # freeze AFK
-                frozen_elapsed = time.time() - start_time - total_pause_duration  # freeze elapsed
+
+                # freeze both values
+                frozen_afk = afk_time()
+                frozen_elapsed = time.time() - start_time - total_pause_duration
+
                 generate_button.configure(text='RESUME')
-                
 
             else:
                 paused = False
                 total_pause_duration += time.time() - pause_start_time
-                update_activity()
+                
+                # restore last_activity so AFK continues from the frozen point
+                last_activity = time.time() - frozen_afk
+                
                 generate_button.configure(text='PAUSE')
-
 
 
         generate_button = ctk.CTkButton(
@@ -336,6 +340,7 @@ def main():
             else:
                 elapsed = time.time() - start_time - total_pause_duration
                 afk_elapsed = afk_time()
+
 
             remaining = max(0, goal_time - elapsed)
             remaining_str = str(timedelta(seconds=remaining)).split(".")[0]
