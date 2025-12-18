@@ -31,20 +31,7 @@ early = False
 
 ui_running = True
 
-# def on_key_press(key):
-#     global paused, pause_start_time, total_pause_duration
-#     try:
-#         if key.char == 'p' and not paused:
-#             paused = True
-#             pause_start_time = time.time()
-#             update_activity()
-#             print("\n[PAUSED] Press 'r' to resume.")
-#         elif key.char == 'r' and paused:
-#             paused = False
-#             total_pause_duration += time.time() - pause_start_time
-#             print("\n[RESUMED]")
-#     except AttributeError:
-#         pass
+
 
 def slot_machine_animation(win):
     symbols = ["🍒", "🍋", "⭐", "💎", "7"]
