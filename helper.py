@@ -12,6 +12,7 @@ import customtkinter as ctk
 import tkinter.messagebox as messagebox
 import tkinter as tk
 from tkinter import TclError
+import pickle
 
 last_activity = None
 last_afk_penalty = 0
@@ -355,41 +356,6 @@ def main():
         root.mainloop()
 
 
-        # while True:
-        #     try:
-        #         elapsed = (time.time() - start_time) - total_pause_duration
-        #         remaining = max(0, goal_time - elapsed)
-
-        #         afk_elapsed = frozen_afk if paused else afk_time()
-
-        #         remaining_td = timedelta(seconds=remaining)
-        #         remaining_str = str(remaining_td).split(".")[0]
-        #         status_label.configure(
-        #             text=f"AFK: {afk_elapsed:6.1f}s   |   Odds: {100 * odds:.0f}%   |   Remaining: {remaining_str}s"
-        #         )
-        #         root.update_idletasks()
-
-        #         now = time.time()
-
-        #         if now - last_afk_penalty >= 300:
-        #             if afk_elapsed >= 300:
-        #                 odds -= 0.01
-        #                 odds = clamp(odds)
-        #             last_afk_penalty = now
-
-        #         if elapsed >= goal_time:
-        #             print("\nGoal complete!")
-        #             finished = True
-        #             break
-
-        #         time.sleep(0.1)
-        #     except KeyboardInterrupt:
-        #         early = True
-        #         break
-        #     except TclError:
-        #         if finished == False:
-        #             early = True
-        #         break
 
     finally:
         # listener.stop()
