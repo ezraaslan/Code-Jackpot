@@ -265,8 +265,6 @@ def main():
     observer.schedule(handler, TARGET_DIR, recursive=False)
     observer.start()
 
-    # listener = kb.Listener(on_press=on_key_press)
-    # listener.start()
     try:
         print("\nTimer started! Monitoring file...\n")
         print("Press Ctrl+C to stop.")
