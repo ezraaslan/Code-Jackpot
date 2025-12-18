@@ -105,7 +105,7 @@ def count_syntax_errors(filepath):
 
 def bet(balance):
     while True:
-        wager_input = input(f"You have ${balance}. Enter amount to wager: ").strip()
+        wager_input = input(f"You have ${balance:.2f}. Enter amount to wager: ").strip()
         try:
             wager = float(wager_input)
             if 0 <= wager <= balance:
