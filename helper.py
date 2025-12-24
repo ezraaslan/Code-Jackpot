@@ -13,6 +13,7 @@ import tkinter.messagebox as messagebox
 import tkinter as tk
 from tkinter import TclError
 import pickle
+from plyer import notification
 
 last_activity = None
 last_afk_penalty = 0
@@ -379,6 +380,12 @@ def main():
                 if afk_elapsed >= 120:
                     odds -= 0.05
                     odds = clamp(odds)
+                    notification.notify(
+                        title='AFK Timer',
+                        message="You haven't typed in 2 minutes!",
+                        app_name='Python Notifier',
+                        timeout=5
+                    )
                 last_afk_penalty = now
 
             if elapsed >= goal_time:
