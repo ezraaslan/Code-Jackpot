@@ -375,9 +375,9 @@ def main():
             )
 
             now = time.time()
-            if now - last_afk_penalty >= 300:
-                if afk_elapsed >= 300:
-                    odds -= 0.01
+            if now - last_afk_penalty >= 120:
+                if afk_elapsed >= 120:
+                    odds -= 0.05
                     odds = clamp(odds)
                 last_afk_penalty = now
 
