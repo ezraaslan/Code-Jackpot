@@ -66,7 +66,7 @@ Balances persist between sessions.
 
 ## How to Run
 - Download the latest release and run the program from the terminal (this only works for Windows as the releaes is a .exe file)
-  **OR**
+# **OR**
 ```bash
 pip install -r requirements.txt
 python main.py
