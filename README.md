@@ -1,4 +1,4 @@
-# Code Jackpot 🎰
+# Code Jackpot 
 
 **Code Jackpot** is an educational productivity tool designed to inspire a love of coding by turning focused work into a game.
 
