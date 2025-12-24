@@ -35,6 +35,39 @@ ui_running = True
 lines_added = 0
 errors = 0
 
+RESET = "\033[0m"
+BLUE  = "\033[94m"
+GREEN = "\033[92m"
+RED   = "\033[91m" 
+
+def layered_code_bar(total_lines, added_lines, error_lines, width=40):
+    if total_lines <= 0:
+        return "[no data]"
+
+    added_lines = min(added_lines, total_lines)
+    error_lines = min(error_lines, added_lines)
+
+    added_ratio = added_lines / total_lines
+    error_ratio = error_lines / total_lines 
+
+    added_blocks = int(width * added_ratio)
+    error_blocks = int(width * error_ratio)
+
+    error_blocks = min(error_blocks, added_blocks)
+    good_added_blocks = added_blocks - error_blocks
+
+    base_blocks = width - added_blocks
+
+    bar = (
+        BLUE + "█" * base_blocks +
+        RED + "█" * error_blocks +
+        GREEN + "█" * good_added_blocks +
+        RESET
+    )
+
+    return f"[{bar}]"
+
+
 def slot_machine_animation(win):
     symbols = ["🍒", "🍋", "⭐", "💎", "7"]
 
@@ -392,17 +425,19 @@ def main():
         total_lines = len(f.readlines())
 
     if total_lines > 0:
-        lines_percent = lines_added/total_lines
+        lines_percent = (lines_added/total_lines) * 100
     else:
         lines_percent = 0.0
     if lines_added > 0:
-        errors_percent = errors/lines_added
+        errors_percent = (errors/lines_added) * 100
     else:
         errors_percent = 0.0
     
     print("Session Summary:")
-    print(f"Lines Added: {lines_added} ({lines_percent}% of the file)")
-    print(f"Errors Added: {errors} ({errors_percent}% of added lines)")
+    print(f"Lines Added: {lines_added} ({lines_percent:.0f}% of the file)")
+    print(f"Errors Added: {errors} ({errors_percent:.0f}% of added lines)")
+
+    print(layered_code_bar(total_lines, lines_added, errors))
 
 if __name__ == "__main__":
     main()
