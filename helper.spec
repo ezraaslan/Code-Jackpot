@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['C:\\Users\\Ezra\\Downloads\\Games\\Code_Helper\\helper.py'],
+    ['C:\\Users\\Ezra\\Downloads\\Games\\Code-Jackpot\\helper.py'],
     pathex=[],
     binaries=[],
     datas=[],
