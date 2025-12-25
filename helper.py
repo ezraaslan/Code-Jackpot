@@ -274,7 +274,8 @@ def main():
     odds += streak_bonus
     odds = clamp(odds)
     streak_bonus = min(daily_streak * 0.01, 0.3)  # max 1 month
-    print("Wow! You've reached the max streak! Streak bonus resets tomorrow.")
+    if daily_streak >= 30:
+        print("Wow! You've reached the max streak! Streak bonus resets tomorrow.")
     daily_streak = 0
 
 
@@ -486,3 +487,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    input("\nPress Enter to exit...")
