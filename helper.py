@@ -14,6 +14,7 @@ import tkinter as tk
 from tkinter import TclError
 import pickle
 from plyer import notification
+from datetime import date
 
 last_activity = None
 last_afk_penalty = 0
@@ -35,6 +36,9 @@ ui_running = True
 
 lines_added = 0
 errors = 0
+
+daily_streak = 0
+last_used_date = None
 
 RESET = "\033[0m"
 BLUE  = "\033[94m"
@@ -245,6 +249,36 @@ def main():
     global TARGET_FILE, last_line_count, last_afk_penalty, odds, last_content, last_activity, finished, early, paused
 
     try:
+        with open("streak.pkl", "rb") as f:
+            daily_streak, last_used_date = pickle.load(f)
+    except:
+        daily_streak = 0
+        last_used_date = None
+
+    today = date.today()
+
+    if last_used_date == today:
+        # already counted
+        pass
+
+    elif last_used_date == today - timedelta(days=1):
+        #next day
+        daily_streak += 1
+
+    else:
+        daily_streak = 0
+
+    last_used_date = today
+
+    streak_bonus = daily_streak * 0.01
+    odds += streak_bonus
+    odds = clamp(odds)
+    streak_bonus = min(daily_streak * 0.01, 0.3)  # max 1 month
+    print("Wow! You've reached the max streak! Streak bonus resets tomorrow.")
+    daily_streak = 0
+
+
+    try:
         with open("balance.pkl", "rb") as f:
             balance = pickle.load(f)
     except:
@@ -372,7 +406,7 @@ def main():
             remaining_str = str(timedelta(seconds=remaining)).split(".")[0]
 
             status_label.configure(
-                text=f"AFK: {afk_elapsed:6.1f}s   |   Odds: {100 * odds:.0f}%   |   Remaining: {remaining_str}"
+                text=f" Daily Streak: {daily_streak}   |   AFK: {afk_elapsed:6.1f}s   |   Odds: {100 * odds:.0f}%   |   Remaining: {remaining_str}"
             )
 
             now = time.time()
@@ -427,6 +461,10 @@ def main():
     print(f"Balance: ${balance:.2f}")
     with open('balance.pkl', 'wb') as outf:
             pickle.dump(balance, outf)
+    
+    with open("streak.pkl", "wb") as f:
+        pickle.dump((daily_streak, last_used_date), f)
+
 
     with open(TARGET_FILE, "r", encoding="utf-8") as f:
         total_lines = len(f.readlines())
