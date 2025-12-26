@@ -1,0 +1,4 @@
+pynput
+watchdog
+customtkinter
+plyer
